@@ -36,7 +36,8 @@ public class RESTCustomer {
 
     @PostMapping
     public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer){
-        return new ResponseEntity<>(customerService.save(customer),HttpStatus.CREATED);
+        customerService.save(customer);
+        return new ResponseEntity<>(customer,HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer){
@@ -45,7 +46,8 @@ public class RESTCustomer {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         customer.setId(customerOptional.get().getId());
-        return new ResponseEntity<>(customerService.save(customer),HttpStatus.OK);
+        customerService.save(customer);
+        return new ResponseEntity<>(customer,HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
